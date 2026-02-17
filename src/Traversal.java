@@ -1,24 +1,45 @@
 public class Traversal {
-  public static void main(String[] args) {
-    TreeNode root = new TreeNode(10, null, null);
-    
-    root.left = new TreeNode(9, null, null);
-    root.left.left = new TreeNode(5, null, null);
-    root.left.right = new TreeNode(2, null, null);
 
-    root.right = new TreeNode(15, null, null);
-    root.right.left = new TreeNode(-3, null, null);
+  public static void main(String[] args) {
+    TreeNode<Integer> root = new TreeNode<Integer>(10, null, null);
     
-    root.right.right = new TreeNode(5, null, null);
-    root.right.right.right = new TreeNode(22, null, null);
+    root.left = new TreeNode<Integer>(9, null, null);
+    root.left.left = new TreeNode<Integer>(5, null, null);
+    root.left.right = new TreeNode<Integer>(2, null, null);
+
+    root.right = new TreeNode<Integer>(15, null, null);
+    root.right.left = new TreeNode<Integer>(-3, null, null);
+    
+    root.right.right = new TreeNode<Integer>(5, null, null);
+    root.right.right.right = new TreeNode<Integer>(22, null, null);
+
+
+    TreeNode<String> stringRoot =  new TreeNode<String>("Root", null, null);
+    stringRoot.left = new TreeNode<String>("car", null, null);
+    stringRoot.left.left = new TreeNode<String>("dog", null, null);
+    stringRoot.left.right = new TreeNode<String>("cat", null, null);
+
+    stringRoot.right = new TreeNode<String>("house", null, null);
+    stringRoot.right.left = new TreeNode<String>("hello", null, null);
+    
+    stringRoot.right.right = new TreeNode<String>("goodbye", null, null);
+    stringRoot.right.right.right = new TreeNode<String>("bonito flakes", null, null);
 
     // preOrder(root);
     // postOrder(root);
-    inOrder(root);
+    // inOrder(root);
+
+
+    // inOrder(stringRoot);
+
+    // printGreater(root, 4);
+
+
+    System.out.println(countNodes(root));
   }
 
  // print a tree rooted at the given node in pre-order
-  public static void preOrder(TreeNode node){
+  public static void preOrder(TreeNode<?> node){
    
     // if null, return
     if(node == null){
@@ -34,7 +55,7 @@ public class Traversal {
 
 
 
-  public static void postOrder(TreeNode node){
+  public static <T> void postOrder(TreeNode<T> node){
     // if null, return
     if(node == null){
       return;
@@ -47,7 +68,7 @@ public class Traversal {
     System.out.println(node.value);
   }
 
-  public static void inOrder(TreeNode node){
+  public static <E> void inOrder(TreeNode<E> node){
     // if null, return
     if(node == null){
       return;
@@ -61,9 +82,36 @@ public class Traversal {
     inOrder(node.right);
   }
 
+  public static void printGreater(TreeNode<Integer> node, int n){
+    if(node == null){
+      return;
+    }
+    if(node.value > n){
+    System.out.println(node.value);
+    }
+    printGreater(node.left, n);
+    printGreater(node.right, n);
+  };
 
+  
 
+  public static int countNodes(TreeNode<?> node){
+    //leftCount = count nodes on left
+    //rightCount = count nodes on right
+    //overallCount = leftCount + rightCount
 
+    if(node == null) return 0;
+    return countNodes(node.left) + countNodes(node.right) + 1;
+
+    // return node == null ? 0 : countNodes(node.left) + countNodes(node.right) + 1;
+
+  //  int leftCount = countNodes(node.left);
+  //  int rightCount = countNodes(node.right);
+
+  //  int overallCount = leftCount + rightCount + 1;
+
+  //   return overallCount;
+  }
 
 
 }
