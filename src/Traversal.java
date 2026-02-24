@@ -1,5 +1,8 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Traversal {
 
@@ -28,6 +31,17 @@ public class Traversal {
     stringRoot.right.right = new TreeNode<String>("goodbye", null, null);
     stringRoot.right.right.right = new TreeNode<String>("bonito flakes", null, null);
 
+    TreeNode<Integer> megaRoot = new TreeNode<Integer>(1, null, null);
+
+    TreeNode<Integer> current = megaRoot;
+
+    for(int i = 2; i <= 50000; i++){
+      current.right = new TreeNode<Integer>(i, null, null);
+      current = current.right;
+
+    }
+
+    // System.out.println("preorder recursive");
     // preOrder(root);
     // postOrder(root);
     // inOrder(root);
@@ -42,8 +56,36 @@ public class Traversal {
 
     
 
-    System.out.println(toMap(stringRoot));
+    // System.out.println(toMap(stringRoot));
+
+    // preOrder(megaRoot); 
+    // System.out.println("preorder iterator");
+    // preOrderIter(root);
+    // preOrderIter(megaRoot);
+    levelOrder(root);
   }
+
+// preorder travel using loops/iterations 
+  public static <T> void preOrderIter(TreeNode<T> node){
+    Stack<TreeNode<T>> stack = new Stack<>();
+    if(node == null) return;
+    stack.push(node);
+    
+    
+    while(!stack.isEmpty()){
+      TreeNode<T> current = stack.pop();
+
+      if(current == null ) continue;
+
+      System.out.println(current.value);
+      
+      stack.push(current.right);
+      stack.push(current.left);
+
+    }
+
+  }
+
 
  // print a tree rooted at the given node in pre-order
   public static void preOrder(TreeNode<?> node){
@@ -60,6 +102,26 @@ public class Traversal {
     preOrder(node.right);
   }
 
+    public static <T> void levelOrder(TreeNode<T> node){
+    Queue<TreeNode<T>> queue = new LinkedList<>();
+    if(node == null) return;
+    queue.add(node);
+    
+    
+    while(!queue.isEmpty()){
+      TreeNode<T> current = queue.poll();
+
+      if(current == null ) continue;
+
+      System.out.println(current.value);
+      
+      queue.add(current.left);
+      queue.add(current.right);
+      
+
+    }
+
+  }
 
 
   public static <T> void postOrder(TreeNode<T> node){
